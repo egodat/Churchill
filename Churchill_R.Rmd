@@ -1,0 +1,61 @@
+---
+title: "Churchill"
+output: html_notebook
+---
+
+This is a sample of an analysis of Winston Churchill's "We Shall Fight" speech. The text was taken from:
+https://winstonchurchill.org/resources/speeches/1940-the-finest-hour/we-shall-fight-on-the-beaches/
+
+I created this in RStudio after reading a tutorial found here:
+http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know
+
+
+```{r}
+# Load
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+```
+
+```{r}
+filePath <-"Churchill.txt"
+```
+
+```{r}
+docs <- Corpus(VectorSource(text))
+```
+```{r}
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+```
+```{r}
+# Convert the text to lower case, remove numbers, remove filler words, remove punctuation and white space
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("english"))
+docs <- tm_map(docs, removeWords, c("upon", "shall")) 
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+# Text stemming (simplifying words to their root)
+# I found this to be over zealous but worth including as comment for possible future use
+#docs <- tm_map(docs, stemDocument)
+```
+```{r}
+#Create table of most used words
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+head(d, 10)
+```
+```{r}
+#Visualize most used words in Word Cloud
+set.seed(1234)
+wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+          max.words=74, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
