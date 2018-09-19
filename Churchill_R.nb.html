@@ -295,8 +295,9 @@ head(d, 10)</code></pre>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoMTIzNClcbndvcmRjbG91ZCh3b3JkcyA9IGQkd29yZCwgZnJlcSA9IGQkZnJlcSwgbWluLmZyZXEgPSAxLFxuICAgICAgICAgIG1heC53b3Jkcz03NCwgcmFuZG9tLm9yZGVyPUZBTFNFLCByb3QucGVyPTAuMzUsIFxuICAgICAgICAgIGNvbG9ycz1icmV3ZXIucGFsKDgsIFwiRGFyazJcIikpXG5gYGAifQ== -->
-<pre class="r"><code>set.seed(1234)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1Zpc3VhbGl6ZSBtb3N0IHVzZWQgd29yZHMgaW4gV29yZCBDbG91ZFxuc2V0LnNlZWQoMTIzNClcbndvcmRjbG91ZCh3b3JkcyA9IGQkd29yZCwgZnJlcSA9IGQkZnJlcSwgbWluLmZyZXEgPSAxLFxuICAgICAgICAgIG1heC53b3Jkcz03NCwgcmFuZG9tLm9yZGVyPUZBTFNFLCByb3QucGVyPTAuMzUsIFxuICAgICAgICAgIGNvbG9ycz1icmV3ZXIucGFsKDgsIFwiRGFyazJcIikpXG5gYGAifQ== -->
+<pre class="r"><code>#Visualize most used words in Word Cloud
+set.seed(1234)
 wordcloud(words = d$word, freq = d$freq, min.freq = 1,
           max.words=74, random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, &quot;Dark2&quot;))</code></pre>
